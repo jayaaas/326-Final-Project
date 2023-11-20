@@ -39,12 +39,33 @@ assert(movie_data) == "Soul Surfer, Drama, PG, 1.75 hours"
 assert(movie_data) == "Barbie, Fantasy, PG-13, 2 hours"
 assert(movie_data) == "Old Dads, Comedy, R, 1.75 hours"
 
-def choose_movie():
+def choose_movie(movies):
     ''' Ask the user what movie they want to search for and finds it within
     the list of movies created
     
     Returns: a movie object that matches what the user searched for 
     '''
+    while True:
+        user_input = input("What movie do you want information about?").strip().upper()
+
+        found_movie = None
+        for movie in movies:
+            if movie.title.upper() == user_input:
+                found_movie = {
+                    'title': movie.title,
+                    'genre': movie.genre,
+                    'rating': movie.rating,
+                    'description': movie.description,
+                    'director': movie.director
+                }
+                break
+        
+        if found_movie:
+            return found_movie
+        else:
+            print("Movie not in database")
+
+
     
 def display_info():
     ''' Displays information about movie in a readable way.
