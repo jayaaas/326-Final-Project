@@ -1,11 +1,16 @@
 #Movie class
 #contains file that has all movies in database (need to find movie database)
+import pandas as pd
+
 class Movie():
 
-#__init__
-    '''Initialize all of the attributes of the class'''
-    def __init__(self):
-        pass
+    def __init__(self, title, genre, rating, description, director):
+        '''Initialize all of the attributes of the class'''
+        self.title = title
+        self.genre = genre
+        self.rating = rating
+        self.description  = description
+        self.director = director
 
 #clean_up function
     def get_data(path):
@@ -15,7 +20,20 @@ class Movie():
         
         Returns: a list of movies with movie objects in it.
 '''
-    pass
+        movies = []
+        data = pd.read_csv(path)
+
+        for index, row in data.iterrows():
+            title = row['title']
+            genre = row['genre']
+            rating = row['rating']
+            description = row['description']
+            director = row['director']
+
+            movie = Movie(title, genre, rating, description, director)
+            movies.append(movie)
+
+        return movies
 
 assert(movie_data) == "Soul Surfer, Drama, PG, 1.75 hours"
 assert(movie_data) == "Barbie, Fantasy, PG-13, 2 hours"
