@@ -85,7 +85,7 @@ assert("fantasy", "PG", 1.5) == "Shrek"
 assert("family", "G", 2) == "Cars"
 assert("horror", "PG-13", 1.5) == "The Boogeyman"
 
-def user_pref(movies):
+def user_pref():
     ''' Ask the user a number of questions to find out what preferences they
     have for the movie they want to watch.
     
@@ -133,21 +133,37 @@ def get_matches():
     '''Finds a list of matches to user preference from the movie list
 
     Returns: list of movies that match what the user prefers'''
-    pass
+    
+    preference = user_pref()
+    i = Movie()
+    matches = []
+    for movie in i.movies:
+        if preference[0] == movie[1] and preference[1] == movie[2] and preference[2] == movie[4]:
+            matches.append(movie)
+    
+    return matches
+
 
 #assert(user_inputs) == ["Murder Mystery, Grown Ups, The Do-Over, Blended, Just Go With It"]
 #assert(user_inputs) == ["Shrek, Cars, Mall Cop, The Lorax, Planes, Wall-e"]
 
 #filter_movies
-def display_results():
+def display_results(matches):
     ''' Displays the matches to user criteria in a readable way
     
     args: result of get_matches
     returns: text of the movies that match criteria'''
-    pass
+    
+    matches = get_matches()
+    
+    print("Here are the movies that match your preferences:\n")
+    for item in matches:
+        print(f"Title: {item.title}\nGenre: {item.genre}\nRating: {item.rating}\
+            \nDescription: {item.description}\\nDirector: {item.director}")
 
-assert(get_matches) == ["Grown-Ups, Blended"]
-assert(get_matches) == ["Cars, Planes"]
+
+#assert(get_matches) == ["Grown-Ups, Blended"]
+#assert(get_matches) == ["Cars, Planes"]
 
 def main():
     ''' main function 
