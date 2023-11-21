@@ -3,7 +3,6 @@
 import pandas as pd
 
 class Movie():
-
     def __init__(self, title, genre, rating, description, director):
         '''Initialize all of the attributes of the class'''
         self.title = title
@@ -67,23 +66,68 @@ def choose_movie(movies):
 
 
     
-def display_info():
+def display_info(movie):
     ''' Displays information about movie in a readable way.
-    
+        print 
+
     '''
 
+    chosen_movie = choose_movie(movie)
+    title = chosen_movie.title
+    genre: chosen_movie.genre
+    rating: chosen_movie.rating
+    description: chosen_movie.description
+    director: chosen_movie.director
+    print(f"{title} is a {genre} film directed by {director} with a rating of {rating}.\nDescription:\n{description}")
+    
 assert("comedy", "R", 1.75) == "Hot Tub Time Machine"
 assert("fantasy", "PG", 1.5) == "Shrek"
 assert("family", "G", 2) == "Cars"
 assert("horror", "PG-13", 1.5) == "The Boogeyman"
 
-def user_pref():
+def user_pref(movies):
     ''' Ask the user a number of questions to find out what preferences they
     have for the movie they want to watch.
     
     Returns: a tuple of all of the preferences the user has
-    '''
 
+    '''
+    #import list of genres, ratings and directors
+    while True:
+        try:
+            genre_pref = input(f"Choose a genre from {genres}: ")
+            if genre_pref not in genres:
+                raise ValueError("Invalid genre. Please choose a from the given options.")
+                break
+        except ValueError:
+            #raise an error
+            break
+        
+    while True:
+        try:
+            rating_pref = input(f"Choose a rating from {ratings}: ")
+            if rating_pref not in ratings:
+                raise ValueError("Invalid rating. Please choose from the given options.")
+            break
+        except ValueError:
+            #raise an error
+                
+    while True:
+        try:
+            director_pref = input(f"Choose a director from {directors}: ")
+            if director_pref not in directors:
+                raise ValueError("Invalid director. Please choose from the given options.")
+            break
+        except ValueError:
+            #raise an error
+    
+    #Maybe ask the user if they are looking for a specific score (like maybe someone only wants to see movies with a rating about 8 on IMDb).
+    #For star, it could be optional (Ask the user IF they want to search for a specific celebrity and if so they can type the exact name they want).
+ 
+    preferences = (genre_pref, rating_pref, director_pref)
+    return preferences
+        
+    
 #get_matches function
 def get_matches():
     '''Finds a list of matches to user preference from the movie list
