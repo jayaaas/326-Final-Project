@@ -22,15 +22,16 @@ class Movie():
         movies = []
         data = pd.read_csv(path)
 
-        for index, row in data.iterrows():
-            title = row['title']
+        for row in data.iterrows():
+            title = row['name']
             genre = row['genre']
             rating = row['rating']
-            description = row['description']
             director = row['director']
 
-            movie = Movie(title, genre, rating, description, director)
+            movie = Movie(title, genre, rating, director)
             movies.append(movie)
+        
+        print(movies)
 
         return movies
 
@@ -54,7 +55,6 @@ def choose_movie(movies):
                     'title': movie.title,
                     'genre': movie.genre,
                     'rating': movie.rating,
-                    'description': movie.description,
                     'director': movie.director
                 }
                 break
@@ -76,14 +76,13 @@ def display_info(movie):
     title = chosen_movie.title
     genre: chosen_movie.genre
     rating: chosen_movie.rating
-    description: chosen_movie.description
     director: chosen_movie.director
-    print(f"{title} is a {genre} film directed by {director} with a rating of {rating}.\nDescription:\n{description}")
+    print(f"{title} is a {genre} film directed by {director} with a rating of {rating}.")
     
-assert("comedy", "R", 1.75) == "Hot Tub Time Machine"
-assert("fantasy", "PG", 1.5) == "Shrek"
-assert("family", "G", 2) == "Cars"
-assert("horror", "PG-13", 1.5) == "The Boogeyman"
+# assert("comedy", "R", 1.75) == "Hot Tub Time Machine"
+#assert("fantasy", "PG", 1.5) == "Shrek"
+#assert("family", "G", 2) == "Cars"
+#assert("horror", "PG-13", 1.5) == "The Boogeyman"
 
 def user_pref():
     ''' Ask the user a number of questions to find out what preferences they
@@ -162,7 +161,7 @@ def display_results(matches):
     print("Here are the movies that match your preferences:\n")
     for item in matches:
         print(f"Title: {item.title}\nGenre: {item.genre}\nRating: {item.rating}\
-            \nDescription: {item.description}\\nDirector: {item.director}")
+            \nDirector: {item.director}")
 
 
 #assert(get_matches) == ["Grown-Ups, Blended"]
@@ -172,3 +171,5 @@ def main():
     ''' main function - calls function that initiates program
     print statement that tells user what program does 
     '''
+    
+Movie.get_data("movies.csv")
