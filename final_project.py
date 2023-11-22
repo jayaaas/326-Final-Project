@@ -3,12 +3,11 @@
 import pandas as pd
 
 class Movie():
-    def __init__(self, title, genre, rating, description, director):
+    def __init__(self, title, genre, rating, director):
         '''Initialize all of the attributes of the class'''
         self.title = title
         self.genre = genre
         self.rating = rating
-        self.description  = description
         self.director = director
 
 #clean_up function
@@ -21,12 +20,13 @@ class Movie():
 '''
         movies = []
         data = pd.read_csv(path)
+        result = data.iterrows()
 
-        for row in data.iterrows():
-            title = row['name']
-            genre = row['genre']
-            rating = row['rating']
-            director = row['director']
+        for row in result:
+            title = row[0]
+            genre = row[2]
+            rating = row[1]
+            director = row[7]
 
             movie = Movie(title, genre, rating, director)
             movies.append(movie)
@@ -173,5 +173,3 @@ def main():
     ''' main function - calls function that initiates program
     print statement that tells user what program does 
     '''
-    
-Movie.get_data("movies.csv")
