@@ -31,8 +31,10 @@ class Movie():
 
             movie = Movie(title, genre, rating, description, director)
             movies.append(movie)
-
+        print(movies)
         return movies
+    
+
 
 #assert(movie_data) == "Soul Surfer, Drama, PG, 1.75 hours"
 #assert(movie_data) == "Barbie, Fantasy, PG-13, 2 hours"
