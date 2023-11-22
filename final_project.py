@@ -111,6 +111,8 @@ def user_pref():
             break
         except ValueError:
             #raise an error
+            #print statement abt what issue is 
+            pass
                 
     while True:
         try:
@@ -120,6 +122,7 @@ def user_pref():
             break
         except ValueError:
             #raise an error
+            pass
     
     #Maybe ask the user if they are looking for a specific score (like maybe someone only wants to see movies with a rating about 8 on IMDb).
     #For star, it could be optional (Ask the user IF they want to search for a specific celebrity and if so they can type the exact name they want).
@@ -166,5 +169,6 @@ def display_results(matches):
 #assert(get_matches) == ["Cars, Planes"]
 
 def main():
-    ''' main function 
+    ''' main function - calls function that initiates program
+    print statement that tells user what program does 
     '''
