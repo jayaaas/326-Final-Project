@@ -64,6 +64,8 @@ def choose_movie(movies):
         else:
             print("Movie not in database")
 
+        print(found_movie)
+
 
     
 def display_info(movie):
