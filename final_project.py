@@ -196,6 +196,13 @@ def main(path):
 
     database = Database()
     database.get_data(path)
+   
+    while True:
+        user_choice = input("Which application do you want to use: search movie (S) or movie recommender(R)?").upper()
+        if user_choice == "S":
+            
+    
+                            
     database.choose_movie()
     user_pref(database)
     
