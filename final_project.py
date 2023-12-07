@@ -182,8 +182,9 @@ def display_results(matches):
     
     print("Here are the movies that match your preferences:\n")
     for item in matches:
-        print(f"Title: {item.title}\nGenre: {item.genre}\nRating: {item.rating}\
-            \nDirector: {item.director}")
+        # print(f"Title: {item.title}\nGenre: {item.genre}\nRating: {item.rating}\
+            #\nDirector: {item.director}")
+        print(f"{item.title}\n")
 
 
 #assert(get_matches) == ["Grown-Ups, Blended"]
@@ -199,14 +200,22 @@ def main(path):
    
     while True:
         user_choice = input("Which application do you want to use: search movie (S) or movie recommender(R)?").upper()
-        if user_choice == "S":
+
+        if user_choice != "S" && user_choice != "R":
+            print("Please type either 'S' or 'R'.")
+            user_choice = input(user_choice = input("Which application do you want to use: search movie (S) or movie recommender(R)?").upper())
+        else if user_choice == "S":
+            database.choose_movie()
+            database.display_info()
+        else:
+            database.user_pref()
+            database.get_matches()
+            database.display_results()
             
     
                             
     database.choose_movie()
     user_pref(database)
-    
-
     user_pref(genre[genre])
     
 if __name__ == "__main__":
