@@ -80,8 +80,6 @@ class Database():
 
             print(found_movie)
 
-
-    
 def display_info(movie):
     ''' Displays information about movie in a readable way.
         print 
@@ -117,25 +115,18 @@ def user_pref(database):
                 print("Invalid. Enter a valid genre.")
         
     while True:
-        try:
-            rating_pref = input(f"Choose a rating from {ratings}: ")
-            if rating_pref not in ratings:
-                raise ValueError("Invalid rating. Please choose from the given options.")
-            break
-        except ValueError:
-            #raise an error
-            #print statement abt what issue is 
-            pass
+            rating_pref = input(f"Choose a rating from {database.ratings}: ")
+            if rating_pref not in database.ratings:
+                break
+            else:
+                print("Invalid. Enter a valid rating.")
                 
     while True:
-        try:
-            director_pref = input(f"Choose a director from {directors}: ")
-            if director_pref not in directors:
-                raise ValueError("Invalid director. Please choose from the given options.")
-            break
-        except ValueError:
-            #raise an error
-            pass
+            director_pref = input(f"Choose a director from {database.directors}: ")
+            if director_pref not in database.directors:
+                break
+            else:
+                print("Invalid. Enter a valid director.")
     
     #Maybe ask the user if they are looking for a specific score (like maybe someone only wants to see movies with a rating about 8 on IMDb).
     #For star, it could be optional (Ask the user IF they want to search for a specific celebrity and if so they can type the exact name they want).
