@@ -208,7 +208,7 @@ def main(path):
             database.choose_movie()
             database.display_info()
         else:
-            preference = user_pref(database)
+            preference = user_pref(data)
             database.get_matches()
             database.display_results()
             
