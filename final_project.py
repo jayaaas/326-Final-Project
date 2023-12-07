@@ -190,7 +190,9 @@ def main(path):
     database.get_data(path)
    
     while True:
-        user_choice = input("Do you want to search for a movie or get a recommended one?")
+        user_choice = input("Which application do you want to use: search movie (S) or movie recommender(R)?").upper()
+        if user_choice == "S":
+            
     
                             
     database.choose_movie()
