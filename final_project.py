@@ -11,14 +11,30 @@ class Movie():
         self.director = director
 
 #clean_up function
-    def get_data(path):
+class Database():
+    def __init__(self):
+        self.movies = []
+        self.genres = []
+        self.ratings = []
+        self.directors = []
+        
+        for x in self.movies:
+            if x.genres not in self.genres:
+                self.genres.append(x.genres)
+        for y in self.movies:
+            if y.ratings not in self.ratings:
+                self.ratings.append(y.ratings)
+        for z in self.movies:
+            if z.directors not in self.directors:
+                self.directors.append(z.directors)
+        
+    def get_data(self, path):
         ''' Gets values from the movies.csv file and stores them into variables.
         Only gets the data that we want from the file (title, genre, rating,
         description, and director) and disregards the other pieces of information. 
         
         Returns: a list of movies with movie objects in it.
 '''
-        movies = []
         data = pd.read_csv(path)
         result = data.iterrows()
 
@@ -29,42 +45,48 @@ class Movie():
             director = row[7]
 
             movie = Movie(title, genre, rating, director)
+<<<<<<< HEAD
             movies.append(movie)
         print(movies)
         return movies
     
 
+=======
+            self.movies.append(movie)
+        
+        print(self.movies.title) #to check if it works, take out of code
+>>>>>>> 46a4adafb3a40a12d1c0efb47000b870757fc3a8
 
 #assert(movie_data) == "Soul Surfer, Drama, PG, 1.75 hours"
 #assert(movie_data) == "Barbie, Fantasy, PG-13, 2 hours"
 #assert(movie_data) == "Old Dads, Comedy, R, 1.75 hours"
 
-def choose_movie(movies):
-    ''' Ask the user what movie they want to search for and finds it within
-    the list of movies created
-    
-    Returns: a movie object that matches what the user searched for 
-    '''
-    while True:
-        user_input = input("What movie do you want information about?").strip().upper()
-
-        found_movie = None
-        for movie in movies:
-            if movie.title.upper() == user_input:
-                found_movie = {
-                    'title': movie.title,
-                    'genre': movie.genre,
-                    'rating': movie.rating,
-                    'director': movie.director
-                }
-                break
+    def choose_movie(self):
+        ''' Ask the user what movie they want to search for and finds it within
+        the list of movies created
         
-        if found_movie:
-            return found_movie
-        else:
-            print("Movie not in database")
+        Returns: a movie object that matches what the user searched for 
+        '''
+        while True:
+            user_input = input("What movie do you want information about?").strip().upper()
 
-        print(found_movie)
+            found_movie = None
+            for movie in self.movies.title:
+                if movie.upper() == user_input:
+                    found_movie = {
+                        'title': movie.title,
+                        'genre': movie.genre,
+                        'rating': movie.rating,
+                        'director': movie.director
+                    }
+                    break
+            
+            if found_movie:
+                return found_movie
+            else:
+                print("Movie not in database")
+
+            print(found_movie)
 
 
     
@@ -86,7 +108,7 @@ def display_info(movie):
 #assert("family", "G", 2) == "Cars"
 #assert("horror", "PG-13", 1.5) == "The Boogeyman"
 
-def user_pref():
+def user_pref(database):
     ''' Ask the user a number of questions to find out what preferences they
     have for the movie they want to watch.
     
@@ -94,15 +116,13 @@ def user_pref():
 
     '''
     #import list of genres, ratings and directors
+
     while True:
-        try:
-            genre_pref = input(f"Choose a genre from {genres}: ")
-            if genre_pref not in genres:
-                raise ValueError("Invalid genre. Please choose a from the given options.")
+            genre_pref = input(f"Choose a genre from {database.genres}: ")
+            if genre_pref in database.genres:
                 break
-        except ValueError:
-            #raise an error
-            break
+            else:
+                print("Invalid. Enter a valid genre.")
         
     while True:
         try:
@@ -169,7 +189,20 @@ def display_results(matches):
 #assert(get_matches) == ["Grown-Ups, Blended"]
 #assert(get_matches) == ["Cars, Planes"]
 
-def main():
+def main(path):
     ''' main function - calls function that initiates program
     print statement that tells user what program does 
     '''
+
+    database = Database()
+    database.get_data(path)
+    database.choose_movie()
+    user_pref(database)
+    
+
+    user_pref(genre[genre])
+    
+if __name__ == "__main__":
+    path = "movies.csv"
+    main(path)
+    
