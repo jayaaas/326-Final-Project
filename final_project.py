@@ -214,9 +214,9 @@ def main(path):
             
     
                             
-    database.choose_movie()
-    user_pref(database)
-    user_pref(genre[genre])
+    #database.choose_movie()
+    #user_pref(database)
+    #user_pref(genre[genre])
     
 if __name__ == "__main__":
     path = "movies.csv"
