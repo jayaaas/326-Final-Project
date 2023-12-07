@@ -188,6 +188,11 @@ def main(path):
 
     database = Database()
     database.get_data(path)
+   
+    while True:
+        user_choice = input("Do you want to search for a movie or get a recommended one?")
+    
+                            
     database.choose_movie()
     user_pref(database)
     
