@@ -203,7 +203,7 @@ def main(path):
 
         if user_choice != "S" && user_choice != "R":
             print("Please type either 'S' or 'R'.")
-            user_choice = input(user_choice = input("Which application do you want to use: search movie (S) or movie recommender(R)?").upper())
+            user_choice = input("Which application do you want to use: search movie (S) or movie recommender(R)?").upper())
         else if user_choice == "S":
             database.choose_movie()
             database.display_info()
