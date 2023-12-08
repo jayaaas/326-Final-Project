@@ -17,7 +17,8 @@ class Database():
         self.genres = []
         self.ratings = []
         self.directors = []
-        
+
+    def put_info(self):
         for x in self.movies:
             if x.genres not in self.genres:
                 self.genres.append(x.genres)
@@ -46,9 +47,11 @@ class Database():
 
             movie = Movie(title, genre, rating, director)
             self.movies.append(movie)
-            self.genres.add(genre)
-            self.ratings.add(rating)
-            self.directors.add(director)
+
+        self.put_info()
+            #self.genres.add(genre)
+            #self.ratings.add(rating)
+            #self.directors.add(director)
         return self.movies
 
 
