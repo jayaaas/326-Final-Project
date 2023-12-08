@@ -45,17 +45,12 @@ class Database():
             director = row[7]
 
             movie = Movie(title, genre, rating, director)
-<<<<<<< HEAD
-            movies.append(movie)
-        print(movies)
-        return movies
-    
-
-=======
             self.movies.append(movie)
-        
-        print(self.movies.title) #to check if it works, take out of code
->>>>>>> 46a4adafb3a40a12d1c0efb47000b870757fc3a8
+            self.genres.add(genre)
+            self.ratings.add(rating)
+            self.directors.add(director)
+        return self.movies
+
 
 #assert(movie_data) == "Soul Surfer, Drama, PG, 1.75 hours"
 #assert(movie_data) == "Barbie, Fantasy, PG-13, 2 hours"
@@ -71,22 +66,25 @@ class Database():
             user_input = input("What movie do you want information about?").strip().upper()
 
             found_movie = None
-            for movie in self.movies.title:
-                if movie.upper() == user_input:
-                    found_movie = {
-                        'title': movie.title,
-                        'genre': movie.genre,
-                        'rating': movie.rating,
-                        'director': movie.director
-                    }
+            for movie in self.movies:
+                if user_input == movie.title.upper():
+                    found_movie = movie
                     break
+
+
+                    #found_movie = {
+                        #'title': movie.title,
+                        #'genre': movie.genre,
+                        #'rating': movie.rating,
+                       # 'director': movie.director
+                   # }
+                  #  break
             
             if found_movie:
                 return found_movie
             else:
                 print("Movie not in database")
-
-            print(found_movie)
+                return None
 
 
     
@@ -95,20 +93,23 @@ def display_info(movie):
         print 
 
     '''
+    if movie:
+        print(f"{movie.title} is a {movie.genre} film directed by {movie.director} with a rating of {movie.rating}.")
 
-    chosen_movie = choose_movie(movie)
-    title = chosen_movie.title
-    genre: chosen_movie.genre
-    rating: chosen_movie.rating
-    director: chosen_movie.director
-    print(f"{title} is a {genre} film directed by {director} with a rating of {rating}.")
+
+    #chosen_movie = choose_movie(movie)
+    #title = chosen_movie.title
+   # genre: chosen_movie.genre
+    #rating: chosen_movie.rating
+    #director: chosen_movie.director
+    #print(f"{title} is a {genre} film directed by {director} with a rating of {rating}.")
     
 # assert("comedy", "R", 1.75) == "Hot Tub Time Machine"
 #assert("fantasy", "PG", 1.5) == "Shrek"
 #assert("family", "G", 2) == "Cars"
 #assert("horror", "PG-13", 1.5) == "The Boogeyman"
 
-def user_pref(database):
+def user_pref(self):
     ''' Ask the user a number of questions to find out what preferences they
     have for the movie they want to watch.
     
@@ -118,16 +119,16 @@ def user_pref(database):
     #import list of genres, ratings and directors
 
     while True:
-            genre_pref = input(f"Choose a genre from {database.genres}: ")
-            if genre_pref in database.genres:
+            genre_pref = input(f"Choose a genre from {self.genres}: ")
+            if genre_pref in self.genres:
                 break
             else:
                 print("Invalid. Enter a valid genre.")
         
     while True:
         try:
-            rating_pref = input(f"Choose a rating from {ratings}: ")
-            if rating_pref not in ratings:
+            rating_pref = input(f"Choose a rating from {self.ratings}: ")
+            if rating_pref not in self.ratings:
                 raise ValueError("Invalid rating. Please choose from the given options.")
             break
         except ValueError:
@@ -137,8 +138,8 @@ def user_pref(database):
                 
     while True:
         try:
-            director_pref = input(f"Choose a director from {directors}: ")
-            if director_pref not in directors:
+            director_pref = input(f"Choose a director from {self.directors}: ")
+            if director_pref not in self.directors:
                 raise ValueError("Invalid director. Please choose from the given options.")
             break
         except ValueError:
@@ -153,18 +154,15 @@ def user_pref(database):
         
     
 #get_matches function
-def get_matches():
+def get_matches(self):
     '''Finds a list of matches to user preference from the movie list
 
     Returns: list of movies that match what the user prefers'''
     
-    preference = user_pref()
-    i = Movie()
-    matches = []
-    for movie in i.movies:
-        if preference[0] == movie[1] and preference[1] == movie[2] and preference[2] == movie[4]:
-            matches.append(movie)
-    
+    preference = self.user_pref()
+    #i = Movie()
+    matches = [movie for movie in self.movies if
+               preference[0] == movie.genre and preference[1] == movie.rating and preference[2] == movie.director]
     return matches
 
 
@@ -172,13 +170,13 @@ def get_matches():
 #assert(user_inputs) == ["Shrek, Cars, Mall Cop, The Lorax, Planes, Wall-e"]
 
 #filter_movies
-def display_results(matches):
+def display_results(self, matches):
     ''' Displays the matches to user criteria in a readable way
     
     args: result of get_matches
     returns: text of the movies that match criteria'''
     
-    matches = get_matches()
+    #matches = get_matches()
     
     print("Here are the movies that match your preferences:\n")
     for item in matches:
@@ -201,16 +199,15 @@ def main(path):
     while True:
         user_choice = input("Which application do you want to use: search movie (S) or movie recommender(R)?").upper()
 
-        if user_choice != "S" && user_choice != "R":
+        if user_choice != "S" and user_choice != "R":
             print("Please type either 'S' or 'R'.")
-            user_choice = input("Which application do you want to use: search movie (S) or movie recommender(R)?").upper())
-        else if user_choice == "S":
-            database.choose_movie()
-            database.display_info()
+            user_choice = input("Which application do you want to use: search movie (S) or movie recommender(R)?").upper()
+        elif user_choice == "S":
+            chosen_movie = database.choose_movie()
+            database.display_info(chosen_movie)
         else:
-            preference = user_pref(data)
-            database.get_matches()
-            database.display_results()
+            matches = database.get_matches()
+            database.display_results(matches)
             
     
                             
