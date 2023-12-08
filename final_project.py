@@ -174,10 +174,42 @@ class Database():
 
         Returns: list of movies that match what the user prefers'''
     
-        preference = self.user_pref()
-        #i = Movie()
+        while True:
+            genre_pref = input(f"Choose a genre from {self.genres}: ").strip()
+            if genre_pref in self.genres:
+                break
+            else:
+                print("Invalid genre")
+        
+        while True:
+            try:
+                rating_pref = input(f"Choose a rating {self.ratings}: ").strip()
+                if rating_pref not in self.ratings:
+                    raise ValueError("Invalid rating")
+                break
+            except ValueError as e:
+                print(e)
+
+
+        while True:
+            try:
+                director_pref = input(f"Choose a rating {self.directors}: ").strip()
+                if director_pref not in self.directors:
+                    raise ValueError("Invalid rating")
+                break
+            except ValueError as e:
+                print(e)
+
+
+        #preference = self.user_pref()
+        preferences = (genre_pref, rating_pref, director_pref)
         matches = [movie for movie in self.movies if
-                preference[0] == movie.genre and preference[1] == movie.rating and preference[2] == movie.director]
+                   preferences[0] == movie.genre and
+                   preferences[1] == movie.rating and 
+                   preferences[2] == movie.director]
+        #i = Movie()
+        #matches = [movie for movie in self.movies if
+                #preference[0] == movie.genre and preference[1] == movie.rating and preference[2] == movie.director]
         return matches
 
 
