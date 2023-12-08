@@ -19,15 +19,13 @@ class Database():
         self.directors = []
 
     def put_info(self):
-        for x in self.movies:
-            if x.genres not in self.genres:
-                self.genres.append(x.genres)
-        for y in self.movies:
-            if y.ratings not in self.ratings:
-                self.ratings.append(y.ratings)
-        for z in self.movies:
-            if z.directors not in self.directors:
-                self.directors.append(z.directors)
+        for movie in self.movies:
+            if movie.genre not in self.genres:
+                self.genres.append(movie.genres)
+            if movie.rating not in self.ratings:
+                self.ratings.append(movie.ratings)
+            if movie.director not in self.directors:
+                self.directors.append(movie.director)
         
     def get_data(self, path):
         ''' Gets values from the movies.csv file and stores them into variables.
@@ -37,16 +35,26 @@ class Database():
         Returns: a list of movies with movie objects in it.
 '''
         data = pd.read_csv(path)
-        result = data.iterrows()
+        for _, row in data.iterrows():
+            if "name" not in row or "genre" not in row or "rating" not in row or "director" not in row:
+                print("Missing item")
+                continue
 
-        for row in result:
-            title = row[0]
-            genre = row[2]
-            rating = row[1]
-            director = row[7]
+        title = row["name"]
+        genre = row["genre"]
+        rating = row["rating"]
+        director = row["director"]
 
-            movie = Movie(title, genre, rating, director)
-            self.movies.append(movie)
+
+        movie = Movie(title, genre, rating, director)
+        self.movies.append(movie)
+
+        if genre:
+            self.genres.append(genre)
+        if rating:
+            self.ratings.append(rating)
+        if director:
+            self.ratings.append(director)
 
         self.put_info()
             #self.genres.add(genre)
@@ -91,13 +99,13 @@ class Database():
 
 
     
-def display_info(movie):
-    ''' Displays information about movie in a readable way.
-        print 
+    def display_info(movie):
+        ''' Displays information about movie in a readable way.
+         print 
 
-    '''
-    if movie:
-        print(f"{movie.title} is a {movie.genre} film directed by {movie.director} with a rating of {movie.rating}.")
+        '''
+        if movie:
+            print(f"{movie.title} is a {movie.genre} film directed by {movie.director} with a rating of {movie.rating}.")
 
 
     #chosen_movie = choose_movie(movie)
@@ -112,80 +120,80 @@ def display_info(movie):
 #assert("family", "G", 2) == "Cars"
 #assert("horror", "PG-13", 1.5) == "The Boogeyman"
 
-def user_pref(self):
-    ''' Ask the user a number of questions to find out what preferences they
-    have for the movie they want to watch.
+    def user_pref(self):
+        ''' Ask the user a number of questions to find out what preferences they
+        have for the movie they want to watch.
     
-    Returns: a tuple of all of the preferences the user has
+        Returns: a tuple of all of the preferences the user has
 
-    '''
+        '''
     #import list of genres, ratings and directors
 
-    while True:
-            genre_pref = input(f"Choose a genre from {self.genres}: ")
-            if genre_pref in self.genres:
-                break
-            else:
-                print("Invalid. Enter a valid genre.")
+        while True:
+                genre_pref = input(f"Choose a genre from {self.genres}: ")
+                if genre_pref in self.genres:
+                    break
+                else:
+                    print("Invalid. Enter a valid genre.")
         
-    while True:
-        try:
-            rating_pref = input(f"Choose a rating from {self.ratings}: ")
-            if rating_pref not in self.ratings:
-                raise ValueError("Invalid rating. Please choose from the given options.")
-            break
-        except ValueError:
-            #raise an error
-            #print statement abt what issue is 
-            pass
+        while True:
+            try:
+                rating_pref = input(f"Choose a rating from {self.ratings}: ")
+                if rating_pref not in self.ratings:
+                    raise ValueError("Invalid rating. Please choose from the given options.")
+                break
+            except ValueError:
+                #raise an error
+                #print statement abt what issue is 
+                pass
                 
-    while True:
-        try:
-            director_pref = input(f"Choose a director from {self.directors}: ")
-            if director_pref not in self.directors:
-                raise ValueError("Invalid director. Please choose from the given options.")
-            break
-        except ValueError:
-            #raise an error
-            pass
+        while True:
+            try:
+                director_pref = input(f"Choose a director from {self.directors}: ")
+                if director_pref not in self.directors:
+                    raise ValueError("Invalid director. Please choose from the given options.")
+                break
+            except ValueError:
+                #raise an error
+                pass
     
     #Maybe ask the user if they are looking for a specific score (like maybe someone only wants to see movies with a rating about 8 on IMDb).
     #For star, it could be optional (Ask the user IF they want to search for a specific celebrity and if so they can type the exact name they want).
  
-    preferences = (genre_pref, rating_pref, director_pref)
-    return preferences
+        preferences = (genre_pref, rating_pref, director_pref)
+        return preferences
         
     
 #get_matches function
-def get_matches(self):
-    '''Finds a list of matches to user preference from the movie list
+    def get_matches(self):
+        '''Finds a list of matches to user preference from the movie list
 
-    Returns: list of movies that match what the user prefers'''
+        Returns: list of movies that match what the user prefers'''
     
-    preference = self.user_pref()
-    #i = Movie()
-    matches = [movie for movie in self.movies if
-               preference[0] == movie.genre and preference[1] == movie.rating and preference[2] == movie.director]
-    return matches
+        preference = self.user_pref()
+        #i = Movie()
+        matches = [movie for movie in self.movies if
+                preference[0] == movie.genre and preference[1] == movie.rating and preference[2] == movie.director]
+        return matches
 
 
 #assert(user_inputs) == ["Murder Mystery, Grown Ups, The Do-Over, Blended, Just Go With It"]
 #assert(user_inputs) == ["Shrek, Cars, Mall Cop, The Lorax, Planes, Wall-e"]
 
 #filter_movies
-def display_results(self, matches):
-    ''' Displays the matches to user criteria in a readable way
+    def display_results(self, matches):
+        ''' Displays the matches to user criteria in a readable way
     
-    args: result of get_matches
-    returns: text of the movies that match criteria'''
+        args: result of get_matches
+        returns: text of the movies that match criteria'''
     
-    #matches = get_matches()
+        #matches = get_matches()
     
-    print("Here are the movies that match your preferences:\n")
-    for item in matches:
-        # print(f"Title: {item.title}\nGenre: {item.genre}\nRating: {item.rating}\
-            #\nDirector: {item.director}")
-        print(f"{item.title}\n")
+        print("Here are the movies that match your preferences:\n")
+        for item in matches:
+            # print(f"Title: {item.title}\nGenre: {item.genre}\nRating: {item.rating}\
+                #\nDirector: {item.director}")
+            print(f"{item.title}\n")
 
 
 #assert(get_matches) == ["Grown-Ups, Blended"]
