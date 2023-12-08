@@ -106,6 +106,8 @@ class Database():
         '''
         if movie:
             print(f"{movie.title} is a {movie.genre} film directed by {movie.director} with a rating of {movie.rating}.")
+        else:
+            print("Movie not found in database")
 
 
     #chosen_movie = choose_movie(movie)
@@ -212,8 +214,9 @@ def main(path):
 
         if user_choice != "S" and user_choice != "R":
             print("Please type either 'S' or 'R'.")
-            user_choice = input("Which application do you want to use: search movie (S) or movie recommender(R)?").upper()
-        elif user_choice == "S":
+            #user_choice = input("Which application do you want to use: search movie (S) or movie recommender(R)?").upper()
+            continue
+        if user_choice == "S":
             chosen_movie = database.choose_movie()
             database.display_info(chosen_movie)
         else:
