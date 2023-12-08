@@ -14,14 +14,14 @@ class Movie():
 class Database():
     def __init__(self):
         self.movies = []
-        self.genres = []
+        self.genres = set()  #use set, make list of genres to keep track what goes with each movie, method to convert list to set
         self.ratings = []
         self.directors = []
 
     def put_info(self):
         for movie in self.movies:
             if movie.genre not in self.genres:
-                self.genres.append(movie.genres)
+                self.genres.add(movie.genres)  #don't use append for sets, use add()
             if movie.rating not in self.ratings:
                 self.ratings.append(movie.ratings)
             if movie.director not in self.directors:
@@ -33,33 +33,33 @@ class Database():
         description, and director) and disregards the other pieces of information. 
         
         Returns: a list of movies with movie objects in it.
-'''
+        '''
         data = pd.read_csv(path)
         for _, row in data.iterrows():
             if "name" not in row or "genre" not in row or "rating" not in row or "director" not in row:
                 print("Missing item")
                 continue
 
-        title = row["name"]
-        genre = row["genre"]
-        rating = row["rating"]
-        director = row["director"]
+            title = row["name"]
+            genre = row["genre"]
+            rating = row["rating"]
+            director = row["director"]
 
 
-        movie = Movie(title, genre, rating, director)
-        self.movies.append(movie)
+            movie = Movie(title, genre, rating, director)
+            self.movies.append(movie)
 
-        if genre:
-            self.genres.append(genre)
-        if rating:
-            self.ratings.append(rating)
-        if director:
-            self.ratings.append(director)
+            if genre:
+                self.genres.add(genre)
+            if rating:
+                self.ratings.append(rating)
+            if director:
+                self.ratings.append(director)
 
         self.put_info()
-            #self.genres.add(genre)
-            #self.ratings.add(rating)
-            #self.directors.add(director)
+                #self.genres.add(genre)
+                #self.ratings.add(rating)
+                #self.directors.add(director)
         return self.movies
 
 
@@ -74,11 +74,12 @@ class Database():
         Returns: a movie object that matches what the user searched for 
         '''
         while True:
-            user_input = input("What movie do you want information about?").strip().upper()
+            user_input = input("What movie do you want information about?").strip()
 
             found_movie = None
             for movie in self.movies:
-                if user_input == movie.title.upper():
+                if user_input.upper() == movie.title.upper():
+                    #print("found_movie", movie.title.upper())
                     found_movie = movie
                     break
 
@@ -99,11 +100,12 @@ class Database():
 
 
     
-    def display_info(movie):
+    def display_info(self, movie):
         ''' Displays information about movie in a readable way.
          print 
 
         '''
+        print(movie)
         if movie:
             print(f"{movie.title} is a {movie.genre} film directed by {movie.director} with a rating of {movie.rating}.")
         else:
@@ -207,8 +209,9 @@ def main(path):
     '''
 
     database = Database()
-    database.get_data(path)
-   
+    df = database.get_data(path)
+
+    counter=0
     while True:
         user_choice = input("Which application do you want to use: search movie (S) or movie recommender(R)?").upper()
 
@@ -218,6 +221,7 @@ def main(path):
         if user_choice == "S":
             chosen_movie = database.choose_movie()
             database.display_info(chosen_movie)
+            
         else:
             matches = database.get_matches()
             database.display_results(matches)
