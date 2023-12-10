@@ -15,17 +15,17 @@ class Database():
     def __init__(self):
         self.movies = []
         self.genres = set()  #use set, make list of genres to keep track what goes with each movie, method to convert list to set
-        self.ratings = []
-        self.directors = []
+        self.ratings = set()
+        self.directors = set()
 
     def put_info(self):
         for movie in self.movies:
             if movie.genre not in self.genres:
                 self.genres.add(movie.genres)  #don't use append for sets, use add()
             if movie.rating not in self.ratings:
-                self.ratings.append(movie.ratings)
+                self.ratings.add(movie.ratings)
             if movie.director not in self.directors:
-                self.directors.append(movie.director)
+                self.directors.add(movie.director)
         
     def get_data(self, path):
         ''' Gets values from the movies.csv file and stores them into variables.
@@ -52,9 +52,9 @@ class Database():
             if genre:
                 self.genres.add(genre)
             if rating:
-                self.ratings.append(rating)
+                self.ratings.add(rating)
             if director:
-                self.ratings.append(director)
+                self.directors.add(director)
 
         self.put_info()
                 #self.genres.add(genre)
@@ -151,9 +151,11 @@ class Database():
                 #print statement abt what issue is 
                 pass
                 
+    
         while True:
             try:
                 director_pref = input(f"Choose a director from {self.directors}: ")
+                #if director preference is none
                 if director_pref not in self.directors:
                     raise ValueError("Invalid director. Please choose from the given options.")
                 break
@@ -190,23 +192,26 @@ class Database():
             except ValueError as e:
                 print(e)
 
-
-        while True:
+      
+      
+      #possibly take out director or add in something that shows them a few at a time, make it optional
+        '''while True:
             try:
-                director_pref = input(f"Choose a rating {self.directors}: ").strip()
+                director_pref = input(f"Choose a director {self.directors} or type None: ").strip()
+                #if director_pref == None:
                 if director_pref not in self.directors:
-                    raise ValueError("Invalid rating")
+                    raise ValueError("Invalid director")
                 break
             except ValueError as e:
-                print(e)
+                print(e)'''
 
 
         #preference = self.user_pref()
-        preferences = (genre_pref, rating_pref, director_pref)
+        preferences = (genre_pref, rating_pref) # director_pref)
         matches = [movie for movie in self.movies if
                    preferences[0] == movie.genre and
-                   preferences[1] == movie.rating and 
-                   preferences[2] == movie.director]
+                   preferences[1] == movie.rating] 
+                   #preferences[2] == movie.director]
         #i = Movie()
         #matches = [movie for movie in self.movies if
                 #preference[0] == movie.genre and preference[1] == movie.rating and preference[2] == movie.director]
@@ -226,10 +231,13 @@ class Database():
         #matches = get_matches()
     
         print("Here are the movies that match your preferences:\n")
-        for item in matches:
+        if not matches:
+            print("No matches for your inputs")
+        else:
+            for i in range(0,10):
             # print(f"Title: {item.title}\nGenre: {item.genre}\nRating: {item.rating}\
                 #\nDirector: {item.director}")
-            print(f"{item.title}\n")
+                print(f"{matches[i].title}\n")
 
 
 #assert(get_matches) == ["Grown-Ups, Blended"]
