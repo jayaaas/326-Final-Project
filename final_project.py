@@ -228,15 +228,12 @@ class Database():
         args: result of get_matches
         returns: text of the movies that match criteria'''
     
-        #matches = get_matches()
     
         print("Here are the movies that match your preferences:\n")
         if not matches:
             print("No matches for your inputs")
         else:
             for i in range(0,10):
-            # print(f"Title: {item.title}\nGenre: {item.genre}\nRating: {item.rating}\
-                #\nDirector: {item.director}")
                 print(f"{matches[i].title}\n")
 
 
