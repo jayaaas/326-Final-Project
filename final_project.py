@@ -100,7 +100,6 @@ class Database():
             if found_movie:
                 return found_movie
             else:
-                #print("Movie not in database")
                 return None
 
 
