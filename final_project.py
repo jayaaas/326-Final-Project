@@ -3,6 +3,14 @@
 import pandas as pd
 
 class Movie():
+    """Class that stores data for an instance of the movie
+    
+    Attributes:
+        title(str): name of the movie
+        genre(str): genre of the movie
+        rating(str): what the movie is rated
+        director(str): who directed the movie
+    """
     def __init__(self, title, genre, rating, director):
         '''Initialize all of the attributes of the class'''
         self.title = title
@@ -10,8 +18,11 @@ class Movie():
         self.rating = rating
         self.director = director
 
-#clean_up function
+
 class Database():
+    """Class that stores data from the data file of movies
+
+    """
     def __init__(self):
         self.movies = []
         self.genres = set()  #use set, make list of genres to keep track what goes with each movie
@@ -19,6 +30,9 @@ class Database():
         self.directors = set()
 
     def put_info(self):
+        """Adds the genre, rating, and director to the appropriate list to store it
+    
+        """
         for movie in self.movies:
             if movie.genre not in self.genres:
                 self.genres.add(movie.genres) 
@@ -30,7 +44,10 @@ class Database():
     def get_data(self, path):
         ''' Gets values from the movies.csv file and stores them into variables.
         Only gets the data that we want from the file (title, genre, rating,
-        description, and director) and disregards the other pieces of information. 
+        and director) and disregards the other pieces of information. 
+
+        Args:
+            path: path to the file of movies
         
         Returns: a list of movies with movie objects in it.
         '''
@@ -90,8 +107,9 @@ class Database():
     
     def display_info(self, movie):
         ''' Displays information about movie in a readable way.
-         print 
-
+         
+        Args:
+            movie: movie object from the database
         '''
         print(movie)
         if movie:
@@ -195,12 +213,14 @@ class Database():
 #assert(user_inputs) == ["Murder Mystery, Grown Ups, The Do-Over, Blended, Just Go With It"]
 #assert(user_inputs) == ["Shrek, Cars, Mall Cop, The Lorax, Planes, Wall-e"]
 
-#filter_movies
     def display_results(self, matches):
         ''' Displays the matches to user criteria in a readable way
     
-        args: result of get_matches
-        returns: text of the movies that match criteria
+        Args: 
+            matches: result of get_matches, the movies that matches the user
+                    preferences
+        
+        Returns: text of the movies that match criteria
         '''
     
         print("Here are the movies that match your preferences:\n")
@@ -217,6 +237,7 @@ class Database():
 def main(path):
     ''' main function - calls function that initiates program
     print statement that tells user what program does 
+    Asks the user questions if they want the search or recommender
     '''
 
     database = Database()
