@@ -14,14 +14,14 @@ class Movie():
 class Database():
     def __init__(self):
         self.movies = []
-        self.genres = set()  #use set, make list of genres to keep track what goes with each movie, method to convert list to set
+        self.genres = set()  #use set, make list of genres to keep track what goes with each movie
         self.ratings = set()
         self.directors = set()
 
     def put_info(self):
         for movie in self.movies:
             if movie.genre not in self.genres:
-                self.genres.add(movie.genres)  #don't use append for sets, use add()
+                self.genres.add(movie.genres) 
             if movie.rating not in self.ratings:
                 self.ratings.add(movie.ratings)
             if movie.director not in self.directors:
@@ -57,9 +57,7 @@ class Database():
                 self.directors.add(director)
 
         self.put_info()
-                #self.genres.add(genre)
-                #self.ratings.add(rating)
-                #self.directors.add(director)
+
         return self.movies
 
 
@@ -81,15 +79,6 @@ class Database():
                 if user_input.upper() == movie.title.upper():
                     found_movie = movie
                     break
-
-
-                    #found_movie = {
-                        #'title': movie.title,
-                        #'genre': movie.genre,
-                        #'rating': movie.rating,
-                       # 'director': movie.director
-                   # }
-                  #  break
             
             if found_movie:
                 return found_movie
@@ -110,13 +99,6 @@ class Database():
         else:
             print("Movie not found in database")
 
-
-    #chosen_movie = choose_movie(movie)
-    #title = chosen_movie.title
-   # genre: chosen_movie.genre
-    #rating: chosen_movie.rating
-    #director: chosen_movie.director
-    #print(f"{title} is a {genre} film directed by {director} with a rating of {rating}.")
     
 # assert("comedy", "R", 1.75) == "Hot Tub Time Machine"
 #assert("fantasy", "PG", 1.5) == "Shrek"
@@ -191,8 +173,6 @@ class Database():
             except ValueError as e:
                 print(e)
 
-      
-      
       #possibly take out director or add in something that shows them a few at a time, make it optional
         '''while True:
             try:
@@ -204,16 +184,11 @@ class Database():
             except ValueError as e:
                 print(e)'''
 
-
-        #preference = self.user_pref()
         preferences = (genre_pref, rating_pref) # director_pref)
         matches = [movie for movie in self.movies if
                    preferences[0] == movie.genre and
                    preferences[1] == movie.rating] 
                    #preferences[2] == movie.director]
-        #i = Movie()
-        #matches = [movie for movie in self.movies if
-                #preference[0] == movie.genre and preference[1] == movie.rating and preference[2] == movie.director]
         return matches
 
 
@@ -225,8 +200,8 @@ class Database():
         ''' Displays the matches to user criteria in a readable way
     
         args: result of get_matches
-        returns: text of the movies that match criteria'''
-    
+        returns: text of the movies that match criteria
+        '''
     
         print("Here are the movies that match your preferences:\n")
         if not matches:
@@ -261,12 +236,7 @@ def main(path):
         else:
             matches = database.get_matches()
             database.display_results(matches)
-            
-    
-                            
-    #database.choose_movie()
-    #user_pref(database)
-    #user_pref(genre[genre])
+
     
 if __name__ == "__main__":
     path = "movies.csv"
