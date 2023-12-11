@@ -79,7 +79,6 @@ class Database():
             found_movie = None
             for movie in self.movies:
                 if user_input.upper() == movie.title.upper():
-                    #print("found_movie", movie.title.upper())
                     found_movie = movie
                     break
 
@@ -95,7 +94,7 @@ class Database():
             if found_movie:
                 return found_movie
             else:
-                print("Movie not in database")
+                #print("Movie not in database")
                 return None
 
 
@@ -233,7 +232,7 @@ class Database():
         if not matches:
             print("No matches for your inputs")
         else:
-            for i in range(0,10):
+            for i in range(min(10, len(matches))):
                 print(f"{matches[i].title}\n")
 
 
