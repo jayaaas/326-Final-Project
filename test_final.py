@@ -1,4 +1,4 @@
-#Use Exercise 4 and module 4 as a model
+#Use Exercise 4 and module 4 as a model, rps and test_rps files
 
 import pytest
 
