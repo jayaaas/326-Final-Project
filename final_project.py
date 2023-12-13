@@ -39,9 +39,9 @@ class Database():
         """
         for movie in self.movies:
             if movie.genre not in self.genres:
-                self.genres.add(movie.genres) 
+                self.genres.add(movie.genre) 
             if movie.rating not in self.ratings:
-                self.ratings.add(movie.ratings)
+                self.ratings.add(movie.rating)
             if movie.director not in self.directors:
                 self.directors.add(movie.director)
             if movie.year not in self.years:
@@ -92,11 +92,6 @@ class Database():
 
         return self.movies
 
-
-#assert(movie_data) == "Soul Surfer, Drama, PG, 1.75 hours"
-#assert(movie_data) == "Barbie, Fantasy, PG-13, 2 hours"
-#assert(movie_data) == "Old Dads, Comedy, R, 1.75 hours"
-
     def choose_movie(self):
         ''' Ask the user what movie they want to search for and finds it within
         the list of movies created
@@ -131,11 +126,6 @@ class Database():
         else:
             print("Movie not found in database")
 
-    
-# assert("comedy", "R", 1.75) == "Hot Tub Time Machine"
-#assert("fantasy", "PG", 1.5) == "Shrek"
-#assert("family", "G", 2) == "Cars"
-#assert("horror", "PG-13", 1.5) == "The Boogeyman"
 
     def user_pref(self):
         ''' Ask the user a number of questions to find out what preferences they
@@ -144,8 +134,7 @@ class Database():
         Returns: a tuple of all of the preferences the user has
 
         '''
-    #import list of genres, ratings and directors
-
+        #asks the user questions to get their preferences for genres, ratings, etc
         while True:
                 genre_pref = input(f"Choose a genre from {self.genres}: ")
                 if genre_pref in self.genres:
@@ -180,8 +169,7 @@ class Database():
         preferences = (genre_pref, rating_pref, director_pref)
         return preferences
         
-    
-#get_matches function
+
     def get_matches(self):
         '''Finds a list of matches to user preference from the movie list
 
@@ -243,9 +231,6 @@ class Database():
                 print(f"{matches[i].title}\n")
 
 
-#assert(get_matches) == ["Grown-Ups, Blended"]
-#assert(get_matches) == ["Cars, Planes"]
-
 def main(path):
     ''' main function - calls function that initiates program
     print statement that tells user what program does 
@@ -270,8 +255,9 @@ def main(path):
             matches = database.get_matches()
             database.display_results(matches)
 
-    
+
 if __name__ == "__main__":
     path = "movies.csv"
     main(path)
+
     
