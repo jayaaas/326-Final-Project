@@ -1,5 +1,3 @@
-#Movie class
-#contains file that has all movies in database (need to find movie database)
 import pandas as pd
 
 class Movie():
