@@ -9,14 +9,16 @@ class Movie():
         rating(str): what the movie is rated
         director(str): who directed the movie
         year(int): year the movie was released
+        score(float): score given to the movie
     """
-    def __init__(self, title, genre, rating, director, year):
+    def __init__(self, title, genre, rating, director, year, score):
         '''Initialize all of the attributes of the class'''
         self.title = title
         self.genre = genre
         self.rating = rating
         self.director = director
         self.year = year
+        self.score = score
 
 
 class Database():
@@ -25,13 +27,14 @@ class Database():
     """
     def __init__(self):
         self.movies = []
-        self.genres = set()  #use set, make list of genres to keep track what goes with each movie
+        self.genres = set()
         self.ratings = set()
         self.directors = set()
         self.years = set()
+        self.scores = set()
 
     def put_info(self):
-        """Adds the genre, rating, and director to the appropriate list to store it
+        """Adds the genre, rating, director, year, and score to the appropriate list to store it
     
         """
         for movie in self.movies:
@@ -43,11 +46,14 @@ class Database():
                 self.directors.add(movie.director)
             if movie.year not in self.years:
                 self.years.add(movie.year)
+            if movie.score not in self.scores:
+                self.scores.add(movie.score)
+
         
     def get_data(self, path):
         ''' Gets values from the movies.csv file and stores them into variables.
-        Only gets the data that we want from the file (title, genre, rating,
-        and director) and disregards the other pieces of information. 
+        Only gets the data that we want from the file (title, genre, rating, director,
+        year, and score) and disregards the other pieces of information. 
 
         Args:
             path: path to the file of movies
@@ -56,7 +62,7 @@ class Database():
         '''
         data = pd.read_csv(path)
         for _, row in data.iterrows():
-            if "name" not in row or "genre" not in row or "rating" not in row or "director" not in row or "year" not in row:
+            if "name" not in row or "genre" not in row or "rating" not in row or "director" not in row or "year" not in row or "score" not in row:
                 print("Missing item")
                 continue
 
@@ -65,9 +71,10 @@ class Database():
             rating = row["rating"]
             director = row["director"]
             year = row["year"]
+            score = row["score"]
 
 
-            movie = Movie(title, genre, rating, director, year)
+            movie = Movie(title, genre, rating, director, year, score)
             self.movies.append(movie)
 
             if genre:
@@ -78,6 +85,8 @@ class Database():
                 self.directors.add(director)
             if year:
                 self.years.add(year)
+            if score:
+                self.scores.add(score)
 
         self.put_info()
 
@@ -118,7 +127,7 @@ class Database():
         '''
         print(movie)
         if movie:
-            print(f"{movie.title} is a {movie.genre} film directed by {movie.director} in {movie.year} with a rating of {movie.rating}.")
+            print(f"{movie.title} is a {movie.genre} film directed by {movie.director} in {movie.year} with a rating of {movie.rating} and a score of {movie.score}.")
         else:
             print("Movie not found in database")
 
