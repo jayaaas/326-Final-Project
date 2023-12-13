@@ -102,11 +102,6 @@ class Database():
             else:
                 return None
 
-<<<<<<< HEAD
-def display_info(movie):
-    ''' Displays information about movie in a readable way.
-        print 
-=======
 
     
     def display_info(self, movie):
@@ -120,7 +115,6 @@ def display_info(movie):
             print(f"{movie.title} is a {movie.genre} film directed by {movie.director} with a rating of {movie.rating}.")
         else:
             print("Movie not found in database")
->>>>>>> a3dc5013225a1955448be119af5dd6c5090ee198
 
     
 # assert("comedy", "R", 1.75) == "Hot Tub Time Machine"
@@ -144,21 +138,6 @@ def display_info(movie):
                 else:
                     print("Invalid. Enter a valid genre.")
         
-<<<<<<< HEAD
-    while True:
-            rating_pref = input(f"Choose a rating from {database.ratings}: ")
-            if rating_pref not in database.ratings:
-                break
-            else:
-                print("Invalid. Enter a valid rating.")
-                
-    while True:
-            director_pref = input(f"Choose a director from {database.directors}: ")
-            if director_pref not in database.directors:
-                break
-            else:
-                print("Invalid. Enter a valid director.")
-=======
         while True:
             try:
                 rating_pref = input(f"Choose a rating from {self.ratings}: ")
@@ -166,22 +145,19 @@ def display_info(movie):
                     raise ValueError("Invalid rating. Please choose from the given options.")
                 break
             except ValueError:
-                #raise an error
-                #print statement abt what issue is 
+                print("e")
                 pass
                 
     
         while True:
             try:
                 director_pref = input(f"Choose a director from {self.directors}: ")
-                #if director preference is none
                 if director_pref not in self.directors:
                     raise ValueError("Invalid director. Please choose from the given options.")
                 break
             except ValueError:
                 #raise an error
                 pass
->>>>>>> a3dc5013225a1955448be119af5dd6c5090ee198
     
     #Maybe ask the user if they are looking for a specific score (like maybe someone only wants to see movies with a rating about 8 on IMDb).
     #For star, it could be optional (Ask the user IF they want to search for a specific celebrity and if so they can type the exact name they want).
