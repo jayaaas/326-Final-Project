@@ -21,6 +21,7 @@ class Movie():
         self.score = score
 
 
+
 class Database():
     """Class that stores data from the data file of movies
 
