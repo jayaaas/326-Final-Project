@@ -144,8 +144,8 @@ class Database():
                 if rating_pref not in self.ratings:
                     raise ValueError("Invalid rating. Please choose from the given options.")
                 break
-            except ValueError:
-                print("e")
+            except ValueError as e:
+                print(e)
                 pass
                 
     
