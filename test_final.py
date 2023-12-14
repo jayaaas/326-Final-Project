@@ -5,8 +5,11 @@ import pytest
 from final_project import Movie
 from final_project import Database
 
+movie = Movie("Popeye", "Adventure", "PG", "Robert Altman", 1980, 5.3)
+database = Database()
+database.movies.append(movie)
+
 def test_movie_class():
-    movie = Movie("Popeye", "Adventure", "PG", "Robert Altman", 1980, 5.3)
     assert movie.title == "Popeye"
     assert movie.genre == "Adventure"
     assert movie.rating == "PG"
@@ -14,10 +17,7 @@ def test_movie_class():
     assert movie.year == 1980
     assert movie.score == 5.3
 
-def database_put_info_test():
-    database = Database()
-    movie = Movie("Popeye", "Adventure", "PG", "Robert Altman", 1980, 5.3)
-    database.movies.append(movie)
+def database_test_put_info():
     database.put_info()
     assert "Adventure" in database.genres
     assert "PG" in database.ratings
@@ -29,7 +29,7 @@ def database_put_info_test():
 
 
 test_movie_class()
-database_put_info_test()
+database_test_put_info()
 
 
 print("No errors. Functions get what they should.")
