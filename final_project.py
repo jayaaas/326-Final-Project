@@ -38,6 +38,7 @@ class Database():
         """Adds the genre, rating, director, year, and score to the appropriate list to store it
     
         """
+        #Checks if each attribute about movie is in that specific set
         for movie in self.movies:
             if movie.genre not in self.genres:
                 self.genres.add(movie.genre) 
@@ -61,8 +62,10 @@ class Database():
         
         Returns: a list of movies with movie objects in it.
         '''
+        #opens and reads the file
         data = pd.read_csv(path)
         for _, row in data.iterrows():
+            #checks to make sure every piece of data we want is in the file
             if "name" not in row or "genre" not in row or "rating" not in row or "director" not in row or "year" not in row or "score" not in row:
                 print("Missing item")
                 continue
@@ -74,10 +77,11 @@ class Database():
             year = row["year"]
             score = row["score"]
 
-
+            #instantiates the Movie class to get all the info about one movie and add it to a list 
             movie = Movie(title, genre, rating, director, year, score)
             self.movies.append(movie)
 
+            #adds each specific thing to the set if it's not already there
             if genre:
                 self.genres.add(genre)
             if rating:
@@ -102,6 +106,7 @@ class Database():
         while True:
             user_input = input("What movie do you want information about?").strip()
 
+            #asks the user for the movie, returns the movie if its in the file
             found_movie = None
             for movie in self.movies:
                 if user_input.upper() == movie.title.upper():
@@ -122,6 +127,7 @@ class Database():
             movie: movie object from the database
         '''
         print(movie)
+        #Prints the movie in a way that displays all the information about it
         if movie:
             print(f"{movie.title} is a {movie.genre} film directed by {movie.director} in {movie.year} with a rating of {movie.rating} and a score of {movie.score}.")
         else:
@@ -163,9 +169,6 @@ class Database():
             except ValueError:
                 #raise an error
                 pass
-    
-    #Maybe ask the user if they are looking for a specific score (like maybe someone only wants to see movies with a rating about 8 on IMDb).
-    #For star, it could be optional (Ask the user IF they want to search for a specific celebrity and if so they can type the exact name they want).
  
         preferences = (genre_pref, rating_pref, director_pref)
         return preferences
@@ -192,22 +195,11 @@ class Database():
             except ValueError as e:
                 print(e)
 
-      #possibly take out director or add in something that shows them a few at a time, make it optional
-        '''while True:
-            try:
-                director_pref = input(f"Choose a director {self.directors} or type None: ").strip()
-                #if director_pref == None:
-                if director_pref not in self.directors:
-                    raise ValueError("Invalid director")
-                break
-            except ValueError as e:
-                print(e)'''
-
-        preferences = (genre_pref, rating_pref) # director_pref)
+        #gets the users preferences and makes sure it matches up with a movie
+        preferences = (genre_pref, rating_pref)
         matches = [movie for movie in self.movies if
                    preferences[0] == movie.genre and
                    preferences[1] == movie.rating] 
-                   #preferences[2] == movie.director]
         return matches
 
 
@@ -223,7 +215,8 @@ class Database():
         
         Returns: text of the movies that match criteria
         '''
-    
+
+        #for the movies that match, it will print them out or if there are none it will print no matches
         print("Here are the movies that match your preferences:\n")
         if not matches:
             print("No matches for your inputs")
@@ -245,6 +238,7 @@ def main(path):
     while True:
         user_choice = input("Which application do you want to use: search movie (S) or movie recommender(R)?").upper()
 
+        #asks the user which app to use and calls the function for each one
         if user_choice != "S" and user_choice != "R":
             print("Please type either 'S' or 'R'.")
             user_choice = input("Which application do you want to use: search movie (S) or movie recommender(R)?").upper()
