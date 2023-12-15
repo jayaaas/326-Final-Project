@@ -12,7 +12,16 @@ class Movie():
         score(float): Score given to the movie.
     '''
     def __init__(self, title, genre, rating, director, year, score):
-        '''Initialize all of the attributes of the Movie class'''
+        '''Initialize all of the attributes of the Movie class
+        
+        Args:
+            title(str): Name of the movie
+            genre(str): Genre of the movie
+            rating(str): Rating of the movie.
+            director(str): Director of the movie.
+            year(int): Year the movie was released.
+            score(float): Score given to the movie.
+        '''
         self.title = title
         self.genre = genre
         self.rating = rating
@@ -21,16 +30,19 @@ class Movie():
         self.score = score
 
 class Database():
-    '''Class that stores data from the data file of movies.
+    '''A class that stores data from the data file of movies.
     
     Attributes: 
-
+        movies(list): A list of all the movies.
+        genres(set): A set of all the genres.
+        ratings(set): A set of all the ratings.
+        directors(set): A set of all the directors.
+        years(set): A set of all the years.
+        scores(set): A set of all the scores.
     '''
-    #come back to this docstring
     def __init__(self):
         '''Initialize all of the attributes of the  Database class.
         '''
-        #coem back to docstring
         self.movies = []
         self.genres = set()
         self.ratings = set()
@@ -53,7 +65,6 @@ class Database():
                 self.years.add(movie.year)
             if movie.score not in self.scores:
                 self.scores.add(movie.score)
-
         
     def get_data(self, path):
         ''' Gets values from the movies.csv file and stores them into variables. Only gets the data that we want from the file (title, genre, rating, director, year, and score) and disregards the other pieces of information. 
@@ -94,7 +105,6 @@ class Database():
                 self.scores.add(score)
 
         self.put_info()
-
         return self.movies
 
     def choose_movie(self):
@@ -103,7 +113,7 @@ class Database():
         Returns: A movie object that matches what the user searched for.
         '''
         while True:
-            user_input = input("What movie do you want information about?").strip()
+            user_input = input("What movie do you want information about? ").strip()
 
             #asks the user for the movie, returns the movie if its in the file
             found_movie = None
@@ -130,7 +140,6 @@ class Database():
         else:
             print("Movie not found in database")
 
-
     def user_pref(self):
         ''' Ask the user a number of questions to find out what preferences they have for a movie.
     
@@ -150,15 +159,8 @@ class Database():
                 break
             else:
                 print("Invalid. Enter a valid rating.")
-                
-        while True:
-            director_pref = input(f"Choose a genre from {self.directors}: ")
-            if director_pref in self.directors:
-                break
-            else:
-                print("Invalid. Enter a valid director.")
  
-        preferences = (genre_pref, rating_pref, director_pref)
+        preferences = (genre_pref, rating_pref)
         return preferences
         
     def get_matches(self):
@@ -166,31 +168,12 @@ class Database():
 
         Returns: A list of movies that match what the user prefers.
         '''
-        while True:
-            genre_pref = input(f"Choose a genre from {self.genres}: ").strip()
-            if genre_pref in self.genres:
-                break
-            else:
-                print("Invalid genre")
-        
-        while True:
-            try:
-                rating_pref = input(f"Choose a rating {self.ratings}: ").strip()
-                if rating_pref not in self.ratings:
-                    raise ValueError("Invalid rating")
-                break
-            except ValueError as e:
-                print(e)
-
+        preferences = self.user_pref()
         #gets the users preferences and makes sure it matches up with a movie
-        preferences = (genre_pref, rating_pref)
         matches = [movie for movie in self.movies if
                    preferences[0] == movie.genre and
                    preferences[1] == movie.rating] 
         return matches
-
-#assert(user_inputs) == ["Murder Mystery, Grown Ups, The Do-Over, Blended, Just Go With It"]
-#assert(user_inputs) == ["Shrek, Cars, Mall Cop, The Lorax, Planes, Wall-e"]
 
     def display_results(self, matches):
         ''' Displays the matches to user criteria in a readable way.
@@ -217,20 +200,18 @@ def main(path):
 
     counter=0
     while True:
-        user_choice = input("Which application do you want to use: search movie (S) or movie recommender(R)?").upper()
+        user_choice = input("Which application do you want to use: search movie (S) or movie recommender(R)? ").upper()
 
         #asks the user which app to use and calls the function for each one
         if user_choice != "S" and user_choice != "R":
             print("Please type either 'S' or 'R'.")
-            user_choice = input("Which application do you want to use: search movie (S) or movie recommender(R)?").upper()
+            user_choice = input("Which application do you want to use: search movie (S) or movie recommender(R)? ").upper()
         if user_choice == "S":
             chosen_movie = database.choose_movie()
             database.display_info(chosen_movie)
-            
         else:
             matches = database.get_matches()
             database.display_results(matches)
-
 
 if __name__ == "__main__":
     path = "movies.csv"
