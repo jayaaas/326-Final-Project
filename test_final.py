@@ -47,6 +47,8 @@ def database_test_display_info():
 
 test_movie_class()
 database_test_put_info()
+database_test_choose_movie()
+database_test_display_info()
 
 
 print("No errors. Functions get what they should.")
