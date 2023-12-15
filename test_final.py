@@ -30,7 +30,10 @@ def database_test_put_info():
 #unit test choose_movie
 def database_test_choose_movie():
     database.choose_movie()
-    #someone else has to add to this because i can't run the final project code
+    assert("The Shining") == "The Shining is a Drama film directed by Stanley Kubrick in 1980 with a rating of R and a score of 8.4."
+    assert("Indiana Jones and the Raiders of the Lost Ark") == "Indiana Jones and the Raiders of the Lost Ark is a Action film directed by Steven Spielberg in 1981 with a rating of PG and a score of 8.4"
+    assert("Lucas") == "Lucas is a Comedy film directed by David Seltzer in 1986 with a rating of PG-13 and a score of 6.9."
+    assert("One Crazy Summer") == "One Crazy Summer is a Comedy film directed by Savage Steve Holland in 1986 with a rating of PG and a score of 6.4"
     
 #unit test display_info
 def database_test_display_info():
