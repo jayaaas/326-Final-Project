@@ -105,57 +105,41 @@ class Database():
         while True:
             user_input = input("What movie do you want information about?").strip()
 
-        found_movie = None
-        for movie in movies:
-            if movie.title.upper() == user_input:
-                found_movie = {
-                    'title': movie.title,
-                    'genre': movie.genre,
-                    'rating': movie.rating,
-                    'description': movie.description,
-                    'director': movie.director
-                }
-                break
-        
-        if found_movie:
-            return found_movie
+            #asks the user for the movie, returns the movie if its in the file
+            found_movie = None
+            for movie in self.movies:
+                if user_input.upper() == movie.title.upper():
+                    found_movie = movie
+                    break
+            
+            if found_movie:
+                return found_movie
+            else:
+                return None
+
+    def display_info(self, movie):
+        ''' Displays information about movie in a readable way.
+         
+        Args:
+            movie: An object representing a movie from the database.
+        '''
+        print(movie)
+        #Prints the movie in a way that displays all the information about it
+        if movie:
+            print(f"{movie.title} is a {movie.genre} film directed by {movie.director} in {movie.year} with a rating of {movie.rating} and a score of {movie.score}.")
         else:
-            print("Movie not in database")
+            print("Movie not found in database")
 
 
+    def user_pref(self):
+        ''' Ask the user a number of questions to find out what preferences they have for a movie.
     
-def display_info(movie):
-    ''' Displays information about movie in a readable way.
-        print 
-
-    '''
-
-    chosen_movie = choose_movie(movie)
-    title = chosen_movie.title
-    genre: chosen_movie.genre
-    rating: chosen_movie.rating
-    description: chosen_movie.description
-    director: chosen_movie.director
-    print(f"{title} is a {genre} film directed by {director} with a rating of {rating}.\nDescription:\n{description}")
-    
-assert("comedy", "R", 1.75) == "Hot Tub Time Machine"
-assert("fantasy", "PG", 1.5) == "Shrek"
-assert("family", "G", 2) == "Cars"
-assert("horror", "PG-13", 1.5) == "The Boogeyman"
-
-def user_pref():
-    ''' Ask the user a number of questions to find out what preferences they
-    have for the movie they want to watch.
-    
-    Returns: a tuple of all of the preferences the user has
-
-    '''
-    #import list of genres, ratings and directors
-    while True:
-        try:
-            genre_pref = input(f"Choose a genre from {genres}: ")
-            if genre_pref not in genres:
-                raise ValueError("Invalid genre. Please choose a from the given options.")
+        Returns: A tuple of all of the preferences the user has for genre, rating and director.
+        '''
+        #asks the user questions to get their preferences for genres, ratings, etc
+        while True:
+            genre_pref = input(f"Choose a genre from {self.genres}: ")
+            if genre_pref in self.genres:
                 break
             else:
                 print("Invalid. Enter a valid genre.")
@@ -211,21 +195,45 @@ def user_pref():
     def display_results(self, matches):
         ''' Displays the matches to user criteria in a readable way.
     
-    args: result of get_matches
-    returns: text of the movies that match criteria'''
-    
-    matches = get_matches()
-    
-    print("Here are the movies that match your preferences:\n")
-    for item in matches:
-        print(f"Title: {item.title}\nGenre: {item.genre}\nRating: {item.rating}\
-            \nDescription: {item.description}\\nDirector: {item.director}")
+        Args: 
+            matches: Result of get_matches, the movies that matches the user prefers.
+        
+        Returns: A string of the movies that match the user's criteria.
+        '''
 
+        #for the movies that match, it will print them out or if there are none it will print no matches
+        print("Here are the movies that match your preferences:\n")
+        if not matches:
+            print("No matches for your inputs")
+        else:
+            for i in range(min(10, len(matches))):
+                print(f"{matches[i].title}\n")
 
-#assert(get_matches) == ["Grown-Ups, Blended"]
-#assert(get_matches) == ["Cars, Planes"]
-
-def main():
-    ''' main function - calls function that initiates program
-    print statement that tells user what program does 
+def main(path):
+    ''' Main function: calls function that initiates program, prints statement that tells user what program does and asks the user if they want to use the search or recommender option.
     '''
+    database = Database()
+    df = database.get_data(path)
+
+    counter=0
+    while True:
+        user_choice = input("Which application do you want to use: search movie (S) or movie recommender(R)?").upper()
+
+        #asks the user which app to use and calls the function for each one
+        if user_choice != "S" and user_choice != "R":
+            print("Please type either 'S' or 'R'.")
+            user_choice = input("Which application do you want to use: search movie (S) or movie recommender(R)?").upper()
+        if user_choice == "S":
+            chosen_movie = database.choose_movie()
+            database.display_info(chosen_movie)
+            
+        else:
+            matches = database.get_matches()
+            database.display_results(matches)
+
+
+if __name__ == "__main__":
+    path = "movies.csv"
+    main(path)
+
+    
