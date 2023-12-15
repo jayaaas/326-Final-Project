@@ -180,10 +180,7 @@ class Database():
     
         Args: 
             matches: Result of get_matches, the movies that matches the user prefers.
-        
-        Returns: A string of the movies that match the user's criteria.
         '''
-
         #for the movies that match, it will print them out or if there are none it will print no matches
         print("Here are the movies that match your preferences:\n")
         if not matches:
